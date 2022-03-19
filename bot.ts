@@ -164,3 +164,5 @@ class MinerBot {
         
     }
 }
+
+export {MinerBot}
