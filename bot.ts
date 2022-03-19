@@ -165,4 +165,4 @@ class MinerBot {
     }
 }
 
-export {MinerBot}
+export default MinerBot
