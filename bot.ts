@@ -1,8 +1,6 @@
 const mineflayer = require('mineflayer');
 
-function sleep(secs) {
-    return new Promise(resolve => setTimeout(resolve, secs * 1000));
-}
+import { sleep } from "./util";
 
 class MinerBot {
     bot: any;
