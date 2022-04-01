@@ -33,5 +33,5 @@ document.getElementById("updateSettings").addEventListener("click", () => {
 })
 
 document.getElementById("reload").addEventListener("click", (_event) => {
-    (document.getElementById("view") as HTMLIFrameElement).contentWindow.location.reload()
+    (document.getElementById('view') as HTMLIFrameElement).src += '';
 })

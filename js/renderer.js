@@ -27,5 +27,5 @@ document.getElementById("updateSettings").addEventListener("click", function () 
     window.api.updateSettings(autocx, autofix, autodrop);
 });
 document.getElementById("reload").addEventListener("click", function (_event) {
-    document.getElementById("view").contentWindow.location.reload();
+    document.getElementById('view').src += '';
 });
