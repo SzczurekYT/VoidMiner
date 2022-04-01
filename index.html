@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Void Miner</title>
+  <meta name="description" content="Void Miner Page">
+  <meta name="author" content="Burzowy_Szczurek">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body class="flex-div">
+
+    <div class="section flex-ch">
+
+      <div class="flex-div flex-ch">
+
+        <div class="vflex-div">
+          <form>
+            <label for="email">Minecraftowy Email</label><br>
+            <input class="field" type="email" name="Minecraft Email" id="email"><br>
+            <label for="password">Minecraftowe Hasło</label><br>
+            <input class="field" type="password" name="Minecraft Password" id="password"><br>
+            <input class="button" type="button" value="Start" id="run">
+          </form>
+
+        </div>
+
+        <div class="vflex-div">
+          <form>
+            <input type="checkbox" name="AutoCX" id="autocx" checked>
+            <label for="autocx">Automatyczne tworzenie CX</label><br>
+            <input type="checkbox" name="AutoFIX" id="autofix" checked>
+            <label for="autocx">Automatyczne naprawianie kilofa.</label><br>
+            <input type="checkbox" name="AutoDrop" id="autodrop" checked>
+            <label for="autocx">Automatyczne wyrzucanie itemków.</label><br>
+            <input class="button" type="button" value="Użyj ustawień" id="updateSettings">
+          </form>
+        </div>
+        
+      </div>
+
+      <div class="logging-container field">
+        <p id="log" class="text">Hello</p>
+      </div>
+    
+    </div>
+
+    <div class="section flex-ch">
+      <button class="field text" id="reload">Odśwież podgląd</button>
+      <iframe class="view" id="view" src="http://127.0.0.1:3001"></iframe>
+    </div>
+
+    <script src="js/renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+:root {
+    // --primary-color: rgb(41, 128, 241);
+    --primary-color: #80e550ff;
+    --secondary-color: #172833ff;
+    --bg-color: #111d25;
+}
+
+body {
+    background: var(--bg-color);
+    height: 100vh;
+    margin: 0;
+}
+
+.flex-div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.vflex-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.flex-ch {
+    flex-grow: 1;
+}
+
+
+iframe {
+    border: solid 2px var(--primary-color);
+}
+
+.column {
+    float: left;
+    width: 50%;
+  }
+  
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+input {
+    cursor: pointer;
+}
+
+input:hover {
+    opacity: 0.8;
+}
+
+input[type=password], input[type=email] {
+    min-height: 1.5rem;
+}
+
+.button {
+    min-width: 5rem;
+    min-height: 2rem;
+}
+
+.field, input {
+    background-color: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.text, label, input {
+    color: var(--primary-color);
+    font-size: 15;
+}
+
+.logging-container {
+    flex-grow: 2;
+    padding: 0px 5px;
+    overflow-y: auto;
+    width: 75%;
+    height: 50%;
+}
+
+.view {
+    width: 75%;
+    height: 50%;
+}
+
+.section {
+    margin: 5em;
+    height: 90%;
+    flex: 50%;
+}
