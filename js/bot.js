@@ -93,10 +93,6 @@ var MinerBot = (function () {
                             (0, workerBot_1.renderLog)("Bot zginął!");
                             stop();
                         });
-                        (0, workerBot_1.renderLog)("Ładowanie chunków!");
-                        return [4, this.bot.waitForChunksToLoad()];
-                    case 2:
-                        _a.sent();
                         this.bot.on("physicsTick", function () {
                             var targetBlock = _this.bot.targetDigBlock;
                             if (targetBlock !== null) {
@@ -114,16 +110,19 @@ var MinerBot = (function () {
                         (0, workerBot_1.renderLog)("Zapisuję yaw.");
                         this.yaw = this.bot.entity.yaw;
                         return [4, this.bot.look(this.yaw, 0, false)];
-                    case 3:
+                    case 2:
                         _a.sent();
                         (0, workerBot_1.renderLog)("Zaczynam kopać!");
-                        _a.label = 4;
-                    case 4:
+                        _a.label = 3;
+                    case 3:
                         if (!this.shouldContinue) return [3, 6];
                         return [4, this.tick()];
+                    case 4:
+                        _a.sent();
+                        return [4, (0, util_1.sleep)(0.05)];
                     case 5:
                         _a.sent();
-                        return [3, 4];
+                        return [3, 3];
                     case 6:
                         this.bot.end();
                         (0, workerBot_1.renderLog)("Stoop! :)");
@@ -132,7 +131,7 @@ var MinerBot = (function () {
             });
         }); };
         this.tick = function () { return __awaiter(_this, void 0, void 0, function () {
-            var held, block;
+            var held, block, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -165,12 +164,18 @@ var MinerBot = (function () {
                             this.minPassed = false;
                         }
                         block = this.bot.blockAtCursor(5);
-                        if (!(block !== null)) return [3, 8];
-                        return [4, this.bot.dig(block, "ignore", "raycast")];
+                        if (!(block !== null)) return [3, 10];
+                        _a.label = 7;
                     case 7:
+                        _a.trys.push([7, 9, , 10]);
+                        return [4, this.bot.dig(block, "ignore", "raycast")];
+                    case 8:
                         _a.sent();
-                        _a.label = 8;
-                    case 8: return [2];
+                        return [3, 10];
+                    case 9:
+                        error_1 = _a.sent();
+                        return [3, 10];
+                    case 10: return [2];
                 }
             });
         }); };

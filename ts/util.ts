@@ -1,5 +1,5 @@
 function sleep(secs: number) {
-    return new Promise(resolve => setTimeout(resolve, secs * 1000));
+    return new Promise<void>(resolve => setTimeout(resolve, secs * 1000));
 }
 
 export {sleep}

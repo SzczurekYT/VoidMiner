@@ -65,8 +65,8 @@ class MinerBot {
             stop()
         })           
 
-        renderLog("Ładowanie chunków!")
-        await this.bot.waitForChunksToLoad()
+        // renderLog("Ładowanie chunków!")
+        // await this.bot.waitForChunksToLoad()
 
 
         // The tick
@@ -100,6 +100,7 @@ class MinerBot {
         renderLog("Zaczynam kopać!")
         while (this.shouldContinue) {
             await this.tick()
+            await sleep(0.05)
         }
 
         this.bot.end()
@@ -138,7 +139,11 @@ class MinerBot {
         // Mine
         const block = this.bot.blockAtCursor(5)
         if (block !== null) {
-            await this.bot.dig(block, "ignore", "raycast")
+            try {
+                await this.bot.dig(block, "ignore", "raycast")
+            } catch (error) {
+                
+            }
 
         }   
         
