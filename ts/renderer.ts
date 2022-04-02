@@ -8,7 +8,7 @@ window.api.handleLog( (_event, msg) => {
 })
 
 window.api.handleViewReload( (_event) => {
-    (document.getElementById("view") as HTMLIFrameElement).contentWindow.location.reload()
+    (document.getElementById('view') as HTMLIFrameElement).src += '';
 })
 
 run.addEventListener("click", function(ev: MouseEvent) {
