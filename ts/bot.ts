@@ -79,7 +79,7 @@ class MinerBot {
                 if (block === null) return;
                 
             
-                if (block.position !== targetBlock.position) {
+                if (! block.position.equals( targetBlock.position)) {
                     this.bot.stopDigging()
                 }
             }
@@ -91,7 +91,6 @@ class MinerBot {
             this.minPassed = true
         }, 60*1000)
         
-        renderLog("Zapisuję yaw.")
         this.yaw = this.bot.entity.yaw
 
         
@@ -103,6 +102,7 @@ class MinerBot {
             await sleep(0.05)
         }
 
+        this.bot.viewer.close()
         this.bot.end()
         renderLog("Stoop! :)")
 
@@ -112,12 +112,7 @@ class MinerBot {
     
         // Equip new pick if needed
         let held = this.bot.heldItem
-        if (held === null) {
-            await this.equipPick()
-        } else if (held.type !== 721) {
-            await this.bot.tossStack(held)
-            await this.equipPick()
-        } else {
+        if (held !== null && held.type === 721) {
             if (1561 - held.durabilityUsed <= 100) {
                 this.fixPick()
             }
@@ -169,14 +164,6 @@ class MinerBot {
         renderLog("Podgląd włączony.")
     }
 
-    equipPick = async () => {
-        renderLog("Dobieranie kilofa.")
-        const tool = this.bot.inventory.findInventoryItem(721, null, false)
-        if (tool !== null) {
-           await this.bot.equip(tool, "hand")
-        }
-    }
-
     makeCobblex = () => {
         // Send /cx command that creates cobbleX
         this.bot.chat("/cx")
@@ -188,7 +175,7 @@ class MinerBot {
 
     emptyInventory = async () => {
 
-        renderLog("Dropping inventory!")
+        const random = Math.random() * 0.05
 
         // Ids of items to drop
         const ids = [684, 585, 692, 696, 687, 686, 792, 235, 734, 234]
@@ -206,9 +193,13 @@ class MinerBot {
         // If there is anython to drop than drop it
         if (toDrop.length !== 0) {
 
+            renderLog("Dropping inventory!")
+
+            const yaw = this.bot.entity.yaw
             // Look down
-            // await this.bot.look(this.yaw, -Math.PI / 2, true)
-            // await sleep(1)
+            await this.bot.look(yaw, -1.57 + random, false)
+
+            await sleep(1.5)
 
             // Drop items
             for (const item of toDrop) {
@@ -219,11 +210,11 @@ class MinerBot {
                 // } else {
                 //     await this.bot.tossStack(item)
                 // }
-                await sleep(0.3)
+                await sleep(1)
                 
             }
             // Look up (forward)
-            // await this.bot.look(this.yaw, 0, true)
+            await this.bot.look(yaw, 0 + random, false)
             // await sleep(1)
      
            renderLog("Dropped all items!")
