@@ -114,7 +114,7 @@ class MinerBot {
         let held = this.bot.heldItem
         if (held === null) {
             await this.equipPick()
-        } else if (held["type"] !== 721) {
+        } else if (held.type !== 721) {
             await this.bot.tossStack(held)
             await this.equipPick()
         } else {
@@ -131,7 +131,7 @@ class MinerBot {
         if (this.minPassed) {
 
             // Empty inventory
-            this.emptyInventory()
+            await this.emptyInventory()
 
             this.minPassed = false
         }
@@ -142,7 +142,7 @@ class MinerBot {
             try {
                 await this.bot.dig(block, "ignore", "raycast")
             } catch (error) {
-                
+
             }
 
         }   
@@ -170,6 +170,7 @@ class MinerBot {
     }
 
     equipPick = async () => {
+        renderLog("Dobieranie kilofa.")
         const tool = this.bot.inventory.findInventoryItem(721, null, false)
         if (tool !== null) {
            await this.bot.equip(tool, "hand")
@@ -199,7 +200,7 @@ class MinerBot {
 
         // Get all items to drop
         let toDrop: any[] = this.bot.inventory.items()
-        toDrop.filter((item) => ids.includes(item["type"]))
+        toDrop = toDrop.filter((item) => ids.includes(item.type))
     
 
         // If there is anython to drop than drop it
@@ -211,12 +212,13 @@ class MinerBot {
 
             // Drop items
             for (const item of toDrop) {
-                if (item["type"] === 686) {
-                    if (item.count >= 5)
-                        await this.bot.toss(686, null, item.count - 4)
-                } else {
-                    await this.bot.tossStack(item)
-                }
+                await this.bot.tossStack(item)
+                // if (item.type === 686) {
+                //     if (item.count >= 5)
+                //         await this.bot.toss(686, null, item.count - 4)
+                // } else {
+                //     await this.bot.tossStack(item)
+                // }
                 await sleep(0.3)
                 
             }
