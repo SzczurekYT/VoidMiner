@@ -1,25 +1,24 @@
-import { parentPort } from 'worker_threads';
 import MinerBot from './bot';
 
 let minerBot = new MinerBot;
 
 const renderLog = (message: string) => {
-    parentPort.postMessage(["log", message])
+    postMessage(["log", message])
 }
 
 const reloadView = () => {
-    parentPort.postMessage(["reloadView"])
+    postMessage(["reloadView"])
 }
 
-parentPort.on("message", (data) => {
-    if (data[0] === "start") {
-        minerBot.mainloop(data[1], data[2], data[3])
-    } else if (data[0] === "stop") {
+onmessage = (event: MessageEvent<any>) => {
+    if (event.data[0] === "start") {
+        minerBot.mainloop(event.data[1], event.data[2], event.data[3])
+    } else if (event.data[0] === "stop") {
         minerBot.stop()
         minerBot = new MinerBot()
-    } else if (data[0] === "updateSettings") {
-        minerBot.updateSettings(data[1], data[2], data[3])
+    } else if (event.data[0] === "updateSettings") {
+        minerBot.updateSettings(event.data[1], event.data[2], event.data[3])
     } 
-})
+}
 
 export {renderLog, reloadView}

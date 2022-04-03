@@ -23,10 +23,6 @@
   "license": "MIT",
   "build": {
     "appId": "voidminer",
-    "extraResources": [{
-      "from": "js/workerBot.js",
-      "to": "app.asar.unpacked/js/workerBot.js"
-    }],
     "win": {
       "target": "portable",
       "icon": "icon/icon.ico"
