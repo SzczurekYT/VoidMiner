@@ -8,7 +8,7 @@ function createWindow() {
       height: 1080,
       autoHideMenuBar: true,
       webPreferences: {
-        nodeIntegrationInWorker: true
+        "nodeIntegration": true
       }
     })
 
