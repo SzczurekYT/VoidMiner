@@ -22,11 +22,11 @@ run.addEventListener("click", function(ev: MouseEvent) {
         const password = (document.getElementById("password") as HTMLInputElement).value
 
         minerBot.mainloop(username, password, "thevoid.pl")
-        minerBot = new MinerBot()
         run.value = "Stop";
     } else if (run.value === "Stop") {
 
         minerBot.stop()
+        minerBot = new MinerBot()
         run.value = "Start";
     }
 
