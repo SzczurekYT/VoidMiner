@@ -1,5 +1,5 @@
 import { Anvil, Bot, createBot } from "../node_modules/mineflayer/index";
-import { reloadView, renderLog } from "./renderer";
+import { reloadView, renderLog } from "./main";
 import { sleep } from "./util";
 const viewer = require("prismarine-viewer").mineflayer
 import { once } from 'events';

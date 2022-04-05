@@ -1,19 +1,16 @@
-import MinerBot from './bot';
 const log = document.getElementById("log")
 const run = (document.getElementById("run") as HTMLInputElement)
 const us = document.getElementById("us")
 
-let minerBot = new MinerBot;
-
 run.value = "Start"
 
-const renderLog = (message: string) => {
+window.api.handleLog((event, message: string) => {
     log.innerText = log.innerText + "\n" + message;
-}
+})
 
-const reloadView = () => {
+window.api.handleViewReload((event) => {
     (document.getElementById('view') as HTMLIFrameElement).src += '';
-}
+})
 
 run.addEventListener("click", function(ev: MouseEvent) {
     if (run.value === "Start") {
@@ -21,12 +18,11 @@ run.addEventListener("click", function(ev: MouseEvent) {
         const username = (document.getElementById("email") as HTMLInputElement).value
         const password = (document.getElementById("password") as HTMLInputElement).value
 
-        minerBot.mainloop(username, password, "thevoid.pl")
+        window.api.start(username, password)
         run.value = "Stop";
     } else if (run.value === "Stop") {
 
-        minerBot.stop()
-        minerBot = new MinerBot()
+        window.api.stop()
         run.value = "Start";
     }
 
@@ -37,9 +33,7 @@ document.getElementById("updateSettings").addEventListener("click", () => {
     const autofix: boolean = (document.getElementById("autofix")  as HTMLInputElement).checked;
     const autodrop: boolean = (document.getElementById("autodrop")  as HTMLInputElement).checked;
 
-    minerBot.updateSettings(autocx, autofix, autodrop)
+    window.api.updateSettings(autocx, autofix, autodrop)
 })
 
-document.getElementById("reload").addEventListener("click", reloadView)
-
-export {renderLog, reloadView}
+// document.getElementById("reload").addEventListener("click", reloadView)
