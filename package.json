@@ -24,7 +24,7 @@
   "build": {
     "appId": "voidminer",
     "win": {
-      "target": "portable",
+      "target": "zip",
       "icon": "icon/icon.ico"
     },
     "extraFiles": [

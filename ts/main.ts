@@ -1,6 +1,9 @@
 import { app, BrowserWindow, Menu, ipcMain } from 'electron'
+import path = require('path');
+import MinerBot from './bot';
 
 let win: BrowserWindow = null;
+let minerBot = new MinerBot;
 
 function createWindow() {
     win = new BrowserWindow({
@@ -8,7 +11,7 @@ function createWindow() {
       height: 1080,
       autoHideMenuBar: true,
       webPreferences: {
-        nodeIntegrationInWorker: true
+        preload: path.join(__dirname, 'preload.js')
       }
     })
 
@@ -36,10 +39,33 @@ function createWindow() {
     win.loadFile("index.html")
   }  
 
-app.whenReady().then(() => {  
+const renderLog = (message: string) => {
+  win.webContents.send('log', message)
+}
+
+const reloadView = () => {
+  win.webContents.send("reloadView")
+}
+
+app.whenReady().then(() => {
+  ipcMain.on("start", (event, username: string, password: string) => {
+    minerBot.mainloop(username, password, "thevoid.pl")
+  })
+
+  ipcMain.on("stop", () => {
+    minerBot.stop()
+    minerBot = new MinerBot()
+  })
+
+  ipcMain.on("updateSettings", (event, autocx: boolean, autofix: boolean, autodrop: boolean) => {
+    minerBot.updateSettings(autocx, autofix, autodrop)
+  })
+  
   createWindow()
 })
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
   })
+
+export {renderLog, reloadView}

@@ -1,5 +1,5 @@
 import { Anvil, Bot, createBot } from "../node_modules/mineflayer/index";
-import { reloadView, renderLog } from "./workerBot";
+import { reloadView, renderLog } from "./main";
 import { sleep } from "./util";
 const viewer = require("prismarine-viewer").mineflayer
 import { once } from 'events';
@@ -101,7 +101,7 @@ class MinerBot {
             await this.tick()
             await sleep(0.05)
         }
-
+        // @ts-ignore
         this.bot.viewer.close()
         this.bot.end()
         renderLog("Stoop! :)")
@@ -112,7 +112,7 @@ class MinerBot {
     
         // Equip new pick if needed
         let held = this.bot.heldItem
-        if (held !== null && held.type === 721) {
+        if (this.autofix && held !== null && held.type === 721) {
             if (1561 - held.durabilityUsed <= 100) {
                 this.fixPick()
             }
@@ -126,7 +126,9 @@ class MinerBot {
         if (this.minPassed) {
 
             // Empty inventory
-            await this.emptyInventory()
+            if (this.autodrop) {
+                await this.emptyInventory()
+            }
 
             this.minPassed = false
         }
