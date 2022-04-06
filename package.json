@@ -26,10 +26,6 @@
     "win": {
       "target": "zip",
       "icon": "icon/icon.ico"
-    },
-    "extraFiles": [
-      "js/workerBot.js",
-      "js/bot.js"
-    ]
+    }
   }
 }
