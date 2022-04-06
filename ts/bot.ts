@@ -31,8 +31,6 @@ class MinerBot {
             renderLog("Nie udało się połączyć.")
         }
 
-        renderLog("Połączono.")
-
         this.bot.on("error", (error) => {
             console.log("Error: ", error.stack)
             renderLog("Error: " + error.stack)
@@ -45,7 +43,7 @@ class MinerBot {
         })
 
         await once(this.bot, 'spawn')  
-        renderLog("Spawned")
+        renderLog("Dołączono do świata.")
     
         // Launch the viewer
         this.launchViewer()
@@ -163,7 +161,7 @@ class MinerBot {
         } catch (error) {
             renderLog("Nie udało się włączyć podglądu. Jest już włączony?")
         }
-        renderLog("Podgląd włączony.")
+        renderLog("Uruchomiono podgląd.")
     }
 
     makeCobblex = () => {
@@ -173,6 +171,7 @@ class MinerBot {
 
     fixPick = () => {
         this.bot.chat("/naprawkilof")
+        renderLog("Naprawiono kilof.")
     }
 
     updateDate = () => {
@@ -199,7 +198,7 @@ class MinerBot {
         // If there is anython to drop than drop it
         if (toDrop.length !== 0) {
 
-            renderLog("Dropping inventory!")
+            renderLog("Wyrzucanie itemków.")
 
             const yaw = this.bot.entity.yaw
             // Look down
@@ -223,7 +222,7 @@ class MinerBot {
             await this.bot.look(yaw, 0 + random, false)
             // await sleep(1)
      
-           renderLog("Dropped all items!")
+           renderLog("Wyrzucono wszystkie itemki.")
         }
 
     }
