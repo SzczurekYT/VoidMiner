@@ -124,8 +124,12 @@ class MinerBot {
         if (this.settings.autodrop) {
 
             if (new Date() > this.nextMinute) {
-                await this.emptyInventory()
-                this.updateDate()
+                let pos = this.bot.entity.position.clone()
+                pos.y += -1
+                if (this.bot.blockAt(pos).type === 349) {
+                    await this.emptyInventory()
+                    this.updateDate()
+                }
             }
             
         }
@@ -177,7 +181,7 @@ class MinerBot {
 
     emptyInventory = async () => {
 
-        const random = Math.random() * 0.05
+        const random = Math.random() * 0.03
 
         // Ids of items to drop
         const ids = [684, 585, 692, 696, 687, 686, 792, 235, 734, 234]
