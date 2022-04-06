@@ -9,19 +9,16 @@
   <meta name="description" content="Void Miner Page">
   <meta name="author" content="Burzowy_Szczurek">
 
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
   <link rel="stylesheet" href="css/main.css">
 
+  <script defer src="js/renderer.js"></script>
 </head>
 
 <body class="flex-div">
 
-    <div class="section flex-ch">
+    <div class="section flex-ch vflex-div">
 
-      <div class="flex-div flex-ch">
+      <div class="flex-div flex-ch settings-div">
 
         <div class="vflex-div">
           <form>
@@ -47,16 +44,15 @@
         
       </div>
 
-      <div class="logging-container field">
-        <p id="log" class="text">Hello</p>
+      <div class="logging-container field" style="flex-grow: 2;">
+        <p id="log" class="text"></p>
       </div>
     
     </div>
 
-    <div class="section flex-ch">
+    <div class="section flex-ch vflex-div">
       <iframe class="view" id="view" src="http://127.0.0.1:3001"></iframe>
     </div>
 
-    <script src="js/renderer.js"></script>
 </body>
 </html>
