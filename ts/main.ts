@@ -17,16 +17,8 @@ function createWindow() {
 
     const menu = Menu.buildFromTemplate([
       {
-        label: app.name,
+        label: "VoidMiner",
         submenu: [
-          {
-            click: () => win.webContents.send('log', "Inc"),
-            label: 'Increment',
-          },
-          {
-            click: () => win.webContents.send('log', "Dec"),
-            label: 'Decrement',
-          },
           {
             click: () => win.webContents.openDevTools(),
             label: 'DevTools',
