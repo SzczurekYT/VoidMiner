@@ -7,13 +7,13 @@ import { once } from 'events';
 class MinerBot {
     bot: Bot;
     shouldContinue: boolean = true;
-    minPassed: boolean = false;
     yaw: number;
     settings: {"autocx": boolean, "autofix": boolean, "autodrop": boolean} = {
         "autocx": true,
         "autofix": true,
         "autodrop": true
     }
+    nextMinute: Date;
 
     mainloop = async (username: string, password: string, host: string) => {
 
@@ -86,17 +86,14 @@ class MinerBot {
                 }
             }
         })    
-
-        
-
-        setInterval(() => {
-            this.minPassed = true
-        }, 60*1000)
         
         this.yaw = this.bot.entity.yaw
 
         
         await this.bot.look(this.yaw, 0, false)
+
+        this.nextMinute = new Date()
+        this.updateDate()
         
         renderLog("Zaczynam kopać!")
         while (this.shouldContinue) {
@@ -112,27 +109,25 @@ class MinerBot {
 
     tick = async () => {      
     
-        // Equip new pick if needed
-        let held = this.bot.heldItem
-        if (this.settings.autofix && held !== null && held.type === 721) {
-            if (1561 - held.durabilityUsed <= 100) {
-                this.fixPick()
-            }
+        // Repqir a pickaxe if needed.
+        const held = this.bot.heldItem
+        if (this.settings.autofix && held !== null && held.type === 721 && 1561 - held.durabilityUsed <= 100) {
+            this.fixPick()
         }
 
         // Make cobblex
         if (this.settings.autocx && this.bot.inventory.count(21, null) >= 640) {
             this.makeCobblex()
         }
+
         // If minute passed do periodical things
-        if (this.minPassed) {
+        if (this.settings.autodrop) {
 
-            // Empty inventory
-            if (this.settings.autodrop) {
+            if (new Date() > this.nextMinute) {
                 await this.emptyInventory()
+                this.updateDate()
             }
-
-            this.minPassed = false
+            
         }
 
         // Mine
@@ -174,6 +169,10 @@ class MinerBot {
 
     fixPick = () => {
         this.bot.chat("/naprawkilof")
+    }
+
+    updateDate = () => {
+        this.nextMinute.setMinutes(this.nextMinute.getMinutes() + 1)
     }
 
     emptyInventory = async () => {
