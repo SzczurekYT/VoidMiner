@@ -57,8 +57,8 @@ app.whenReady().then(() => {
     minerBot = new MinerBot()
   })
 
-  ipcMain.on("updateSettings", (event, autocx: boolean, autofix: boolean, autodrop: boolean) => {
-    minerBot.updateSettings(autocx, autofix, autodrop)
+  ipcMain.on("updateSettings", (event, settings: {"autocx": boolean, "autofix": boolean, "autodrop": boolean}) => {
+    minerBot.updateSettings(settings)
   })
   
   createWindow()

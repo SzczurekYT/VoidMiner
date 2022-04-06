@@ -2,6 +2,14 @@ const log = document.getElementById("log")
 const run = (document.getElementById("run") as HTMLInputElement)
 const us = document.getElementById("us")
 
+const updateSettings = () => {
+    window.api.updateSettings({
+        "autocx": (document.getElementById("autocx") as HTMLInputElement).checked,
+        "autofix": (document.getElementById("autofix")  as HTMLInputElement).checked,
+        "autodrop": (document.getElementById("autodrop")  as HTMLInputElement).checked
+    })
+}
+
 run.value = "Start"
 
 window.api.handleLog((event, message: string) => {
@@ -19,6 +27,7 @@ run.addEventListener("click", function(ev: MouseEvent) {
         const password = (document.getElementById("password") as HTMLInputElement).value
 
         window.api.start(username, password)
+        updateSettings()
         run.value = "Stop";
     } else if (run.value === "Stop") {
 
@@ -28,10 +37,9 @@ run.addEventListener("click", function(ev: MouseEvent) {
 
 })
 
-document.getElementById("updateSettings").addEventListener("click", () => {
-    const autocx: boolean = (document.getElementById("autocx") as HTMLInputElement).checked;
-    const autofix: boolean = (document.getElementById("autofix")  as HTMLInputElement).checked;
-    const autodrop: boolean = (document.getElementById("autodrop")  as HTMLInputElement).checked;
-
-    window.api.updateSettings(autocx, autofix, autodrop)
-})
+const settingElements = Array.from(document.getElementsByClassName("setting"))
+for (const setting of settingElements) {
+    setting.addEventListener("change", () => {
+        updateSettings()
+    })
+}

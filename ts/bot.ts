@@ -9,9 +9,11 @@ class MinerBot {
     shouldContinue: boolean = true;
     minPassed: boolean = false;
     yaw: number;
-    autocx: boolean = true;
-    autofix: boolean = true;
-    autodrop: boolean = true;
+    settings: {"autocx": boolean, "autofix": boolean, "autodrop": boolean} = {
+        "autocx": true,
+        "autofix": true,
+        "autodrop": true
+    }
 
     mainloop = async (username: string, password: string, host: string) => {
 
@@ -112,21 +114,21 @@ class MinerBot {
     
         // Equip new pick if needed
         let held = this.bot.heldItem
-        if (this.autofix && held !== null && held.type === 721) {
+        if (this.settings.autofix && held !== null && held.type === 721) {
             if (1561 - held.durabilityUsed <= 100) {
                 this.fixPick()
             }
         }
 
         // Make cobblex
-        if (this.bot.inventory.count(21, null) >= 640) {
+        if (this.settings.autocx && this.bot.inventory.count(21, null) >= 640) {
             this.makeCobblex()
         }
         // If minute passed do periodical things
         if (this.minPassed) {
 
             // Empty inventory
-            if (this.autodrop) {
+            if (this.settings.autodrop) {
                 await this.emptyInventory()
             }
 
@@ -151,10 +153,9 @@ class MinerBot {
         this.shouldContinue = false;
     }
 
-    updateSettings = (autocx: boolean, autofix: boolean, autodrop: boolean) => {
-        this.autocx = autocx;
-        this.autofix = autofix;
-        this.autodrop = autodrop;
+    updateSettings = (settings: {"autocx": boolean, "autofix": boolean, "autodrop": boolean}) => {
+        this.settings = settings
+        renderLog("Zaktualizowano ustawienia.")
     }
 
     launchViewer = () => {
@@ -183,7 +184,7 @@ class MinerBot {
         const ids = [684, 585, 692, 696, 687, 686, 792, 235, 734, 234]
 
         // If bot doesn't make cobblex then it should also drop cobblestone
-        if (! this.autocx) {
+        if (! this.settings.autocx) {
             ids.push(21)
         }
 

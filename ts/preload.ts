@@ -5,7 +5,7 @@ export const API = {
     handleViewReload: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => ipcRenderer.on("reloadView", callback),
     start: (username: string, password: string) => ipcRenderer.send("start", username, password),
     stop: () => ipcRenderer.send("stop"),
-    updateSettings: (autocx: boolean, autofix: boolean, autodrop: boolean) => ipcRenderer.send("updateSettings", autocx, autofix, autodrop)    
+    updateSettings: (settings: {"autocx": boolean, "autofix": boolean, "autodrop": boolean}) => ipcRenderer.send("updateSettings", settings)    
 }
 
 contextBridge.exposeInMainWorld('api', API)
