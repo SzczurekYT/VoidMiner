@@ -35,5 +35,3 @@ document.getElementById("updateSettings").addEventListener("click", () => {
 
     window.api.updateSettings(autocx, autofix, autodrop)
 })
-
-// document.getElementById("reload").addEventListener("click", reloadView)
